@@ -52,10 +52,10 @@ export default async function ApprovalPage({ searchParams }: ApprovalPageProps) 
 
       const guestName = Array.isArray(booking?.guests)
         ? booking?.guests?.[0]?.full_name
-        : booking?.guests?.full_name;
+        : (booking?.guests as { full_name?: string } | undefined)?.full_name;
       const roomNumber = Array.isArray(booking?.rooms)
         ? booking?.rooms?.[0]?.room_number
-        : booking?.rooms?.room_number;
+        : (booking?.rooms as { room_number?: string } | undefined)?.room_number;
 
       return {
         ...request,
