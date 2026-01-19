@@ -44,7 +44,7 @@ export default async function ApprovalPage({ searchParams }: ApprovalPageProps) 
           ...request,
           label: "Guest delete request",
           detail: guest
-            ? `${guest.full_name} • ${guest.age} yrs • ${guest.contact || "-"}`
+            ? `${guest.full_name} - ${guest.age} yrs - ${guest.contact || "-"}`
             : "Guest record not found",
         };
       }
@@ -66,9 +66,9 @@ export default async function ApprovalPage({ searchParams }: ApprovalPageProps) 
         ...request,
         label: "Booking delete request",
         detail: booking
-          ? `${guestName ?? "Guest"} • Room ${roomNumber ?? "-"} • ${formatManilaDateTime(
+          ? `${guestName ?? "Guest"} - Room ${roomNumber ?? "-"} - ${formatManilaDateTime(
               booking.check_in
-            )} → ${formatManilaDateTime(booking.check_out)}`
+            )} to ${formatManilaDateTime(booking.check_out)}`
           : "Booking record not found",
       };
     })
@@ -188,8 +188,12 @@ export default async function ApprovalPage({ searchParams }: ApprovalPageProps) 
                     {request.detail}
                   </p>
                   <p className="muted text-xs">
-                    Requested by {request.staff_users?.full_name ?? "Staff"} •{" "}
-                    {formatManilaDateTime(request.created_at)}
+                    Requested by{" "}
+                    {Array.isArray(request.staff_users)
+                      ? request.staff_users?.[0]?.full_name ?? "Staff"
+                      : (request.staff_users as { full_name?: string } | undefined)?.full_name ??
+                        "Staff"}{" "}
+                    - {formatManilaDateTime(request.created_at)}
                   </p>
                 </div>
                 <div className="flex gap-2">
@@ -218,6 +222,10 @@ export default async function ApprovalPage({ searchParams }: ApprovalPageProps) 
     </div>
   );
 }
+
+
+
+
 
 
 
