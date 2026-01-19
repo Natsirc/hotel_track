@@ -50,11 +50,18 @@ export default async function ApprovalPage({ searchParams }: ApprovalPageProps) 
         .eq("id", request.entity_id)
         .maybeSingle();
 
+      const guestName = Array.isArray(booking?.guests)
+        ? booking?.guests?.[0]?.full_name
+        : booking?.guests?.full_name;
+      const roomNumber = Array.isArray(booking?.rooms)
+        ? booking?.rooms?.[0]?.room_number
+        : booking?.rooms?.room_number;
+
       return {
         ...request,
         label: "Booking delete request",
         detail: booking
-          ? `${booking.guests?.full_name ?? "Guest"} • Room ${booking.rooms?.room_number ?? "-"} • ${formatManilaDateTime(
+          ? `${guestName ?? "Guest"} • Room ${roomNumber ?? "-"} • ${formatManilaDateTime(
               booking.check_in
             )} → ${formatManilaDateTime(booking.check_out)}`
           : "Booking record not found",
