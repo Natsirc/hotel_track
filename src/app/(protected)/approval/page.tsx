@@ -160,7 +160,7 @@ export default async function ApprovalPage({ searchParams }: ApprovalPageProps) 
 
       {message ? (
         <Popup
-          tone={message.tone}
+          tone={message.tone as "success" | "warning" | "error"}
           title={message.tone === "success" ? "Success" : "Notice"}
           message={message.text}
         />
