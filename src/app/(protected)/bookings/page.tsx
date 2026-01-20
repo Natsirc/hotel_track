@@ -424,8 +424,16 @@ export default async function BookingsPage({ searchParams }: BookingsPageProps) 
             <tbody className="text-[var(--ink)]">
               {bookings?.map((booking) => (
                 <tr key={booking.id} className="bg-white/70">
-                  <td className="px-3 py-4 font-semibold">{booking.guests?.full_name ?? "-"}</td>
-                  <td className="px-3 py-4">{booking.rooms?.room_number ?? "-"}</td>
+                  <td className="px-3 py-4 font-semibold">
+                    {Array.isArray(booking.guests)
+                      ? booking.guests?.[0]?.full_name ?? "-"
+                      : (booking.guests as { full_name?: string } | undefined)?.full_name ?? "-"}
+                  </td>
+                  <td className="px-3 py-4">
+                    {Array.isArray(booking.rooms)
+                      ? booking.rooms?.[0]?.room_number ?? "-"
+                      : (booking.rooms as { room_number?: string } | undefined)?.room_number ?? "-"}
+                  </td>
                   <td className="px-3 py-4">{booking.pax}</td>
                   <td className="px-3 py-4">
                     {formatManilaDateTime(booking.check_in)}
