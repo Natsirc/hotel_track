@@ -450,7 +450,15 @@ export default async function BookingsPage({ searchParams }: BookingsPageProps) 
                       {booking.status === "reserved" ? (
                         <form action={updateBookingStatusAction} className="inline-block">
                           <input type="hidden" name="booking_id" value={booking.id} />
-                          <input type="hidden" name="room_id" value={booking.rooms?.id ?? 0} />
+                          <input
+                            type="hidden"
+                            name="room_id"
+                            value={
+                              Array.isArray(booking.rooms)
+                                ? booking.rooms?.[0]?.id ?? 0
+                                : (booking.rooms as { id?: number } | undefined)?.id ?? 0
+                            }
+                          />
                           <button
                             name="action"
                             value="checkin"
@@ -462,7 +470,15 @@ export default async function BookingsPage({ searchParams }: BookingsPageProps) 
                       ) : (
                         <form action={updateBookingStatusAction} className="inline-block">
                           <input type="hidden" name="booking_id" value={booking.id} />
-                          <input type="hidden" name="room_id" value={booking.rooms?.id ?? 0} />
+                          <input
+                            type="hidden"
+                            name="room_id"
+                            value={
+                              Array.isArray(booking.rooms)
+                                ? booking.rooms?.[0]?.id ?? 0
+                                : (booking.rooms as { id?: number } | undefined)?.id ?? 0
+                            }
+                          />
                           <button
                             name="action"
                             value="checkout"
@@ -495,7 +511,15 @@ export default async function BookingsPage({ searchParams }: BookingsPageProps) 
                       </a>
                       <form action={deleteBookingAction} className="inline-block">
                         <input type="hidden" name="booking_id" value={booking.id} />
-                        <input type="hidden" name="room_id" value={booking.rooms?.id ?? 0} />
+                        <input
+                          type="hidden"
+                          name="room_id"
+                          value={
+                            Array.isArray(booking.rooms)
+                              ? booking.rooms?.[0]?.id ?? 0
+                              : (booking.rooms as { id?: number } | undefined)?.id ?? 0
+                          }
+                        />
                         <button
                           type="submit"
                           disabled={
@@ -509,7 +533,15 @@ export default async function BookingsPage({ searchParams }: BookingsPageProps) 
                       </form>
                       <form action={extendBookingAction} className="inline-flex items-center gap-2">
                         <input type="hidden" name="booking_id" value={booking.id} />
-                        <input type="hidden" name="room_id" value={booking.rooms?.id ?? 0} />
+                        <input
+                          type="hidden"
+                          name="room_id"
+                          value={
+                            Array.isArray(booking.rooms)
+                              ? booking.rooms?.[0]?.id ?? 0
+                              : (booking.rooms as { id?: number } | undefined)?.id ?? 0
+                          }
+                        />
                         <select
                           name="extend_hours"
                           className="rounded-full border border-[var(--border)] px-2 py-1 text-xs uppercase tracking-[0.2em]"
