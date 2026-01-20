@@ -10,7 +10,12 @@ type GuestsPageProps = {
   searchParams?: Promise<{ error?: string; success?: string; edit?: string }>;
 };
 
-function getMessage(error?: string, success?: string) {
+type Message = {
+  tone: "success" | "warning" | "error";
+  text: string;
+};
+
+function getMessage(error?: string, success?: string): Message | null {
   if (success === "added") return { tone: "success", text: "Guest added." };
   if (success === "updated") return { tone: "success", text: "Guest updated." };
   if (success === "deleted") return { tone: "success", text: "Guest deleted." };
