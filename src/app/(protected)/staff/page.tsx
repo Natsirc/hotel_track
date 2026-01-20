@@ -9,7 +9,12 @@ type StaffPageProps = {
   searchParams?: Promise<{ error?: string; success?: string; edit?: string }>;
 };
 
-function getMessage(error?: string, success?: string) {
+type Message = {
+  tone: "success" | "warning" | "error";
+  text: string;
+};
+
+function getMessage(error?: string, success?: string): Message | null {
   if (success === "added") return { tone: "success", text: "Staff account created." };
   if (success === "approved") return { tone: "success", text: "Request approved." };
   if (success === "rejected") return { tone: "success", text: "Request rejected." };

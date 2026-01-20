@@ -9,7 +9,12 @@ type RoomsPageProps = {
   searchParams?: Promise<{ error?: string; success?: string; edit?: string }>;
 };
 
-function getMessage(error?: string, success?: string) {
+type Message = {
+  tone: "success" | "warning" | "error";
+  text: string;
+};
+
+function getMessage(error?: string, success?: string): Message | null {
   if (success === "added") return { tone: "success", text: "Room added." };
   if (success === "status") return { tone: "success", text: "Room updated." };
   if (success === "updated") return { tone: "success", text: "Room updated." };
