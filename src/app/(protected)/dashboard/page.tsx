@@ -68,10 +68,20 @@ export default async function DashboardPage() {
               >
                 <div>
                   <p className="text-sm font-semibold text-[var(--plum)]">
-                    {booking.guests?.full_name ?? "Guest"}
+                    {Array.isArray(booking.guests)
+                      ? booking.guests?.[0]?.full_name ?? "Guest"
+                      : (booking.guests as { full_name?: string } | undefined)?.full_name ??
+                        "Guest"}
                   </p>
                   <p className="muted text-xs">
-                    Room {booking.rooms?.room_number ?? "-"} - {formatManilaDateTime(booking.check_in)} to {formatManilaDateTime(booking.check_out)} - {booking.stay_hours} hrs - {booking.pax} pax
+                    Room{" "}
+                    {Array.isArray(booking.rooms)
+                      ? booking.rooms?.[0]?.room_number ?? "-"
+                      : (booking.rooms as { room_number?: string } | undefined)?.room_number ??
+                        "-"}{" "}
+                    - {formatManilaDateTime(booking.check_in)} to{" "}
+                    {formatManilaDateTime(booking.check_out)} - {booking.stay_hours} hrs -{" "}
+                    {booking.pax} pax
                   </p>
                 </div>
                 <span className="rounded-full bg-[var(--fog)] px-3 py-1 text-xs uppercase tracking-[0.2em] text-[var(--mauve)]">
